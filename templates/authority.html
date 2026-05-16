@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>🚨 Inform Authority</h1>
+        
+    </header>
+
+    <div class="form-container">
+
+        <form action="/submit_authority" method="POST">
+
+    <label>Enter your name</label>
+    <input type="text" name="name" placeholder="Enter Name" required> <br><br>
+    <label>Enter mobile Number</label>
+    <input type="text" name="mobile" placeholder="Enter Mobile Number" required>
+<br><br>
+    <label>Enter address</label>
+    <textarea name="address" placeholder="Enter Address" required></textarea>
+<br><br>
+    <button type="submit">
+        Submit Complaint
+    </button>
+
+</form>
+    </div>
+
+</body>
+</html>

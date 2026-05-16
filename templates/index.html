@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+</head>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<body>
+    <header>
+        <j   h1><b>♻ Smart Waste Management System</b></h1>
+        <p>Camera Based Waste Detection</p>
+    </header>
+    <div class="container">
+
+    <div class="camera-box">
+
+        <video id="video" autoplay playsinline></video>
+
+        <img id="photo">
+
+    </div>
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <div class="button-group">
+
+        <button onclick="startCamera()">
+            📷 Start Camera
+        </button>
+
+        <button onclick="captureImage()">
+            📸 Capture Image
+        </button>
+        </div>
+        <script src="script.js"></script>
+        <br>
+        <div class="action-buttons">
+            <a href="/authority"><button>
+            🚨 Inform Authority
+        </button>
+        </a>
+        
+        <button>
+            ♻️ Suggest Decomposition Methods
+        </button>
+        </div>
+    </div>
+    
+</body>
+</html>
