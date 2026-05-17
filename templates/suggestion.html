@@ -7,35 +7,61 @@
 </head>
 <link rel="stylesheet" href="{{ url_for('static', filename='style3.css') }}">
 <body>
-    <h1>{{ waste_type }} Waste Suggestions</h1>
+     <div class="container">
 
-    <br><br>
-<hr>
-</div>
-    <form action="/suggest" method="POST">
+        <h1>
+            ♻ Waste Decomposition Suggestions
+        </h1>
 
-    <select name="waste">
+        <form method="POST">
 
-        <option value="Plastic">Plastic</option>
+            <select name="waste" required>
 
-        <option value="Paper">Paper</option>
+                <option value="">
+                    Select Waste Type
+                </option>
 
-        <option value="Organic">Organic</option>
+                <option value="plastic">
+                    Plastic Waste
+                </option>
 
-    </select>
+                <option value="food">
+                    Food Waste
+                </option>
 
-    <button type="submit">
+                <option value="paper">
+                    Paper Waste
+                </option>
 
-        Suggest Decomposition Methods
+                <option value="metal">
+                    Metal Waste
+                </option>
 
-    </button> 
-    <div class="suggestion">
+            </select>
 
-        {{ suggestion|safe }}
+            <br><br>
 
-    </div> 
+            <button type="submit">
+                Get Suggestions
+            </button>
 
-</form>
+        </form>
+
+        <div class="result">
+
+            <pre>{{ suggestion }}</pre>
+
+        </div>
+
+        <a href="/">
+
+            <button class="back-btn">
+                ⬅ Back
+            </button>
+
+        </a>
+
+    </div>
     
 </body>
 </html>
