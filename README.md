@@ -1,3 +1,3 @@
-static
+static 
 templates
 app.py
