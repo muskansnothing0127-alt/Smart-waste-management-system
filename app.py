@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask,render_template, request, redirect, url_for, jsonify
 import os
 import base64
+import requests
 from datetime import datetime
 
 app = Flask(__name__)
@@ -13,7 +14,6 @@ UPLOAD_FOLDER = "static/uploads"
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
-
 # =========================
 # HOME PAGE
 # =========================
@@ -75,6 +75,7 @@ def save_image():
 def submit_authority():
 
     try:
+
         name = request.form['name']
         mobile = request.form['mobile']
         address = request.form['address']
@@ -84,6 +85,18 @@ def submit_authority():
         print("Mobile :", mobile)
         print("Address :", address)
 
+        message = f"""
+Name: {name}
+Mobile: {mobile}
+Address: {address}
+Waste complaint received
+"""
+
+        send_sms(
+            message,
+            "YOUR_NUMBER"
+        )
+
         return """
         <h1>Complaint Submitted Successfully!</h1>
         <a href="/">Go Back</a>
@@ -91,35 +104,77 @@ def submit_authority():
 
     except Exception as e:
         return str(e)
-
 # =========================
 # DECOMPOSITION SUGGESTION
 # =========================
-@app.route('/suggest')
+@app.route('/suggest', methods=['GET','POST'])
 def suggest():
 
-    suggestion = """
-    Waste Decomposition Suggestions:
+    waste = request.form['waste']
 
-    1. Plastic:
-       Recycle at nearby recycling center.
+    suggestions = {
 
-    2. Food Waste:
-       Use composting method.
+        "Plastic": """
+        <ul>
+            <li>Reuse plastic bottles</li>
+            <li>Make eco-bricks</li>
+        </ul>
+        """,
 
-    3. Paper Waste:
-       Reuse or recycle paper products.
+        "Paper": """
+        <ul>
+            <li>Recycle newspapers</li>
+            <li>Create paper bags</li>
+        </ul>
+        """,
 
-    4. Metal Waste:
-       Send to scrap recycling unit.
-    """
+        "Organic": """
+        <ul>
+            <li>Make compost fertilizer</li>
+            <li>Use for gardening</li>
+        </ul>
+        """
+    }
 
-    return jsonify({
-        suggestion: "suggestion"
-    })
+    return render_template(
+        'suggestion.html',
+        waste_type=waste,
+        suggestion=suggestions[waste]
+    )
+#  =========== SENDING SMS==========
+def send_sms(message, number):
 
-# =========================
-# RUN APP
-# =========================
-if __name__ == '__main__':
+    url = "https://www.fast2sms.com/dev/bulkV2"
+
+    payload = {
+        'message': message,
+        'language': 'english',
+        'route': 'q',
+        "numbers": str(number)
+    }
+
+    headers = {
+        'authorization': 'Dt7K5zjapUSA4uJC1vrbMRHOYnFxi2f6ZwL3QPogqcBhT9dIVlp6ZJQT1MX0r5YoIbDcgiNheklLwfGP'
+    }
+
+    response = requests.post(
+        url,
+        data=payload,
+        headers=headers
+    )
+    print(response.text)
+
+    return response.text
+
+@app.route('/inform', methods=['POST'])
+def inform():
+
+    send_sms(
+        "Waste complaint registered successfully",
+        "7338113474"
+    )
+
+    return "SMS Sent Successfully"
+
+if __name__ == "__main__":
     app.run(debug=True)

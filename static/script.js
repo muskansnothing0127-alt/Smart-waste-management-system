@@ -52,3 +52,22 @@ function captureImage(){
     // Stop camera
     stream.getTracks().forEach(track => track.stop());
 }
+async function getSuggestion() {
+
+    try {
+
+        const response = await fetch('/suggest');
+
+        const data = await response.text();
+
+        document.getElementById("suggestion").innerHTML = data;
+
+    }
+
+    catch(error) {
+
+        console.log(error);
+
+        alert("Error loading suggestions");
+    }
+}s
