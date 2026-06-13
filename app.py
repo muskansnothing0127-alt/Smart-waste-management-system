@@ -94,7 +94,7 @@ Waste complaint received
 
         send_sms(
             message,
-            "YOUR_NUMBER"
+            "7338113474"
         )
 
         return """
@@ -126,8 +126,8 @@ def suggest():
             3.Avoid single-use plastics:-
              Use cloth bags, steel bottles, and reusable containers instead of disposable plastic items.
             4.Use biodegradable products:-
-             Choose biodegradable bags and eco-friendly packaging when possible.
-            5.Recycle plastics
+             Choose biodegradable bags like cloth bags jute bags paper bags and eco-friendly packaging when possible.
+            5.Recycle plastics:-
              Give recyclable plastics to recycling centers or local waste collectors instead of burning or dumping them
             """
 
@@ -196,6 +196,7 @@ def send_sms(message, number):
 
     return response.text
 
+
 @app.route('/inform', methods=['POST'])
 def inform():
 
@@ -205,6 +206,5 @@ def inform():
     )
 
     return "SMS Sent Successfully"
-
 if __name__ == "__main__":
     app.run(debug=True)
