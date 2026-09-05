@@ -94,7 +94,7 @@ Waste complaint received
 
         send_sms(
             message,
-            "7338113474"
+            ""
         )
 
         return """
